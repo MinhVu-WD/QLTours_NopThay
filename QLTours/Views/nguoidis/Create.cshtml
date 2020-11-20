@@ -6,74 +6,81 @@
 
 <h2>Thêm mới người đi</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdDoan, "Đoàn", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("IdDoan", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdDoan, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DSNhanvien, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.StrN, @style = "display:none" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DSKhach, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.StrK, @style = "display:none" } })
-        </div>
-    </div>
-    <div class="form-group">
-
-
-        <div class="col-md-3 ">
-            <div class="panel panel panel-primary">
-                <div class="panel-heading">
-                    Danh sách khách hàng
-                </div>
-
-                @Html.ListBox("DSKhach", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                @Html.ValidationMessageFor(model => model.DSKhach, "", new { @class = "text-danger" })
-
-                <div class="panel-footer">
-                    @Html.ActionLink("Chỉnh sửa danh sách khách", "DSKhachHangCr", new { StrN = ViewBag.StrN, StrK = ViewBag.StrK })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Danh sách nhân viên
-                </div>
-
-                @Html.ListBox("DSNhanVien", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                @Html.ValidationMessageFor(model => model.DSNhanvien, "", new { @class = "text-danger" })
-
-                <div class="panel-footer">
-                    @Html.ActionLink("Chỉnh sửa danh sách nhân viên", "DSNhanVienCr", new { StrN = ViewBag.StrN, StrK = ViewBag.StrK })
-                </div>
+        <div class="form-group">
+            @Html.Label("Tour", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="Here">
+                @Html.DropDownList("IdTour", null, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
-    </div>
-    @*------------------------------------------------------------------------------------------------------------------------*@
- 
-    @*------------------------------------------------------------------------------------------------------------------------*@
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdDoan, "Đoàn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdDoan", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DSNhanvien, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.StrN, @style = "display:none" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DSKhach, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.StrK, @style = "display:none" } })
+            </div>
+        </div>
+        <div class="form-group">
+
+
+            <div class="col-md-3 ">
+                <div class="panel panel panel-primary">
+                    <div class="panel-heading">
+                        Danh sách khách hàng
+                    </div>
+
+                    @Html.ListBox("DSKhach", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.DSKhach, "", new { @class = "text-danger" })
+
+                    <div class="panel-footer">
+                        @Html.ActionLink("Chỉnh sửa danh sách khách", "DSKhachHangCr", new { StrN = ViewBag.StrN, StrK = ViewBag.StrK, idt = ViewBag.idt })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Danh sách nhân viên
+                    </div>
+
+                    @Html.ListBox("DSNhanVien", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.DSNhanvien, "", new { @class = "text-danger" })
+
+                    <div class="panel-footer">
+                        @Html.ActionLink("Chỉnh sửa danh sách nhân viên", "DSNhanVienCr", new { StrN = ViewBag.StrN, StrK = ViewBag.StrK, idt = ViewBag.idt })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*------------------------------------------------------------------------------------------------------------------------*@
+
+        @*------------------------------------------------------------------------------------------------------------------------*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
@@ -82,4 +89,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#IdTour").change(function () {
+                var value = $(this).val();
+                var st = '<input type="text" class="form-control" name="idtour" value=' + value + ' style="display:none" />';
+                $("#Here").append(st);
+                $("#form").submit();
+            });
+        });
+    </script>
 }

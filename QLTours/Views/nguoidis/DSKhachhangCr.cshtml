@@ -3,12 +3,12 @@
 @{
     /**/
 
-    ViewBag.Title = "DSKhachHangEd";
+    ViewBag.Title = "DSKhachHangCr";
 }
 
 <h2> Dánh sách khách hàng </h2>
 
-@using (Html.BeginForm("DSKhachHangCr", "nguoidis", FormMethod.Post, new { iD = ViewBag.Id }))
+@using (Html.BeginForm("DSKhachHangCr", "nguoidis", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table class="table table-striped table-bordered table-hover">
@@ -67,6 +67,7 @@
     </table>
     <input type="text" name="StrN" value=@ViewBag.StrN style="display:none" />
     <input type="text" name="StrK" value=@ViewBag.StrK style="display:none" />
+    <input type="text" name="idt" value=@ViewBag.idt style="display:none" />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />

@@ -60,7 +60,7 @@ namespace QLTours.Controllers
         }
 
         // GET: thongkes
-        public ActionResult Index()
+        public ActionResult ThongKeDoan()
         {
             List<ShiftsModel> ketqua = new List<ShiftsModel>();
 
@@ -132,7 +132,7 @@ namespace QLTours.Controllers
         }
 
         // GET: thongkes/Details/5
-        public ActionResult Details()
+        public ActionResult ThongKeTour()
         {
             List<ShiftsModeltour> ketqua = new List<ShiftsModeltour>();
 

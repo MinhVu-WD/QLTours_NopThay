@@ -365,9 +365,9 @@
     <Content Include="Views\nguoidis\Index.cshtml" />
     <Content Include="Views\thongkes\Create.cshtml" />
     <Content Include="Views\thongkes\Delete.cshtml" />
-    <Content Include="Views\thongkes\Details.cshtml" />
+    <Content Include="Views\thongkes\ThongKeTour.cshtml" />
     <Content Include="Views\thongkes\Edit.cshtml" />
-    <Content Include="Views\thongkes\Index.cshtml" />
+    <Content Include="Views\thongkes\ThongKeDoan.cshtml" />
     <Content Include="Views\nguoidis\DSNhanVienEd.cshtml" />
     <Content Include="Views\nguoidis\DSKhachHangEd.cshtml" />
     <Content Include="Views\nguoidis\DSKhachhangCr.cshtml" />

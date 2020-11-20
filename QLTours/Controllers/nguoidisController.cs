@@ -37,14 +37,19 @@ namespace QLTours.Controllers
         }
 
         // GET: nguoidis/Create
-        public ActionResult Create(string StrN, string StrK)
+        public ActionResult Create(string StrN, string StrK, int idt)
         {
-            ViewBag.IdDoan = new SelectList(db.doans, "Id", "Ten");
-            ViewBag.StrK = StrK ;
+            var tours = db.tours.Join(db.doans, t => t.Id, d => d.IdTour, (t, d) => new { t.Id, t.Ten });
+            var idtour = (idt == 0) ? tours.Select(s => s.Id).FirstOrDefault() : idt;
+            ViewBag.IdTour = new SelectList(tours, "Id", "Ten", idtour);
+            var doans = db.doans.Where(w => w.IdTour == idtour);
+            ViewBag.IdDoan = new SelectList(doans, "Id", "Ten");
+            ViewBag.StrK = StrK;
             ViewBag.StrN = StrN; ;
+            ViewBag.idt = idtour;
             //-----------------ListBox Danh sách khách----------------------------//
             List<SelectListItem> listKhach = new List<SelectListItem>();
-            if(StrK != null)
+            if (StrK != null)
             {
                 string[] IdKs = StrK.Split(',');
                 foreach (string item in IdKs)
@@ -76,7 +81,7 @@ namespace QLTours.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,IdDoan,DSNhanvien,DSKhach")] nguoidi nguoidi)
+        public ActionResult Create([Bind(Include = "Id,IdDoan,DSNhanvien,DSKhach")] nguoidi nguoidi, int idtour)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +89,11 @@ namespace QLTours.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdDoan = new SelectList(db.doans, "Id", "Ten", nguoidi.IdDoan);
+            var tours = db.tours.Join(db.doans, t => t.Id, d => d.IdTour, (t, d) => new { t.Id, t.Ten });
+            ViewBag.IdTour = new SelectList(tours, "Id", "Ten", idtour);
+            ViewBag.idt = idtour;
+            var doans = db.doans.Where(w => w.IdTour == idtour);
+            ViewBag.IdDoan = new SelectList(doans, "Id", "Ten", nguoidi.IdDoan);
             //-----------------ListBox Danh sách khách----------------------------//
             List<SelectListItem> listKhach = new List<SelectListItem>();
             if (nguoidi.DSKhach != null)
@@ -100,7 +109,7 @@ namespace QLTours.Controllers
             ViewBag.DSKhach = listKhach;
             //-----------------ListBox Danh sách nhân viên----------------------------//            
             List<SelectListItem> listNhanVien = new List<SelectListItem>();
-            if(nguoidi.DSNhanvien != null)
+            if (nguoidi.DSNhanvien != null)
             {
                 string[] IdNs = nguoidi.DSNhanvien.Split(',');
                 foreach (string item in IdNs)
@@ -183,7 +192,7 @@ namespace QLTours.Controllers
             ViewBag.DSKhach = listKhach;
             //-----------------ListBox Danh sách nhân viên----------------------------// 
             List<SelectListItem> listNhanVien = new List<SelectListItem>();
-            if(nguoidi.DSNhanvien != null)
+            if (nguoidi.DSNhanvien != null)
             {
                 string[] IdNs = nguoidi.DSNhanvien.Split(',');
                 foreach (string item in IdNs)
@@ -282,23 +291,25 @@ namespace QLTours.Controllers
         /*---------------------------------------------------------------------------------------------------------------*/
         /*---------------------------------------------------------------------------------------------------------------*/
         // GET: khachhangs
-        public ActionResult DSKhachHangCr(string StrN, string StrK)
+        public ActionResult DSKhachHangCr(string StrN, string StrK, int idt)
         {
             ViewBag.StrN = StrN;
             ViewBag.StrK = StrK;
+            ViewBag.idt = idt;
             return View(db.khachhangs.ToList());
         }
 
         // GET: nhanviens
-        public ActionResult DSNhanVienCr(string StrN, string StrK)
-        {            
+        public ActionResult DSNhanVienCr(string StrN, string StrK, int idt)
+        {
             ViewBag.StrN = StrN;
             ViewBag.StrK = StrK;
+            ViewBag.idt = idt;
             return View(db.AspNetUsers.ToList());
         }
 
         [HttpPost]
-        public ActionResult DSKhachHangCr(string[] IdK, string StrN, string StrK)
+        public ActionResult DSKhachHangCr(string[] IdK, string StrN, string StrK, int idt)
         {
             if (IdK != null)
             {
@@ -309,11 +320,11 @@ namespace QLTours.Controllers
                 }
                 StrK = IdkSTR.Replace("/,", "");
             }
-            return RedirectToAction("Create", new { StrN, StrK });
+            return RedirectToAction("Create", new { StrN, StrK, idt });
         }
 
         [HttpPost]
-        public ActionResult DSNhanVienCr(string[] IdNv, string StrN, string StrK)
+        public ActionResult DSNhanVienCr(string[] IdNv, string StrN, string StrK, int idt)
         {
             if (IdNv != null)
             {
@@ -324,7 +335,7 @@ namespace QLTours.Controllers
                 }
                 StrN = IdNvSTR.Replace("/,", "");
             }
-            return RedirectToAction("Create", new { StrN, StrK });
+            return RedirectToAction("Create", new { StrN, StrK, idt });
         }
     }
 }

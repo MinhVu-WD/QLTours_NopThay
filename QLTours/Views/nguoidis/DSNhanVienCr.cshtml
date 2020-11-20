@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<QLTours.Models.AspNetUser>
 
 @{
-    ViewBag.Title = "DSNhanVienEd";
+    ViewBag.Title = "DSNhanVienCr";
 }
 
 <h2> Danh sách nhân viên </h2>
 
-@using (Html.BeginForm("DSNhanVienCr", "nguoidis", FormMethod.Post, new { iD = ViewBag.Id }))
+@using (Html.BeginForm("DSNhanVienCr", "nguoidis", FormMethod.Post))
 {
     <table class="table table-striped table-bordered table-hover">
         <tr>
@@ -70,6 +70,7 @@
     </table>
     <input type="text" name="StrN" value=@ViewBag.StrN style="display:none" />
     <input type="text" name="StrK" value=@ViewBag.StrK style="display:none" />
+    <input type="text" name="idt" value=@ViewBag.idt style="display:none" />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />

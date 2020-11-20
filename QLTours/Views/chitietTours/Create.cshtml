@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm(new { @id = "form", @name = "form1", thanhpho = "", idt = ViewBag.IDTOUR, Saving = "false", count = "0" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @name = "form1", thanhpho = "", idt = ViewBag.IDTOUR, Saving = "false", count = "0" }))
 {
     @Html.AntiForgeryToken()
 
@@ -141,7 +141,8 @@
                 var s = 'true';
                 var c = Number(sessionStorage.getItem("c"));                
                 var st = '<input type="text" class="form-control" name="Saving" value="true" style="display:none" />'
-                        +'<input type="text" class="form-control" name="count" value=' + c + ' style="display:none" />';
+                        +'<input type="text" class="form-control" name="count" value=' + c + ' style="display:none" />'
+                        + '<input type="text" class="form-control" name="idt" value=' + @ViewBag.IDTOUR + ' style="display:none" />';
                 $("#Here").append(st);
                 $("#form").submit();
                 removeData();
