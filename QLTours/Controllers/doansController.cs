@@ -14,6 +14,7 @@ namespace QLTours.Controllers
     {
         private QLToursModels db = new QLToursModels();
 
+
         // GET: doans
         public ActionResult Index()
         {
@@ -124,6 +125,40 @@ namespace QLTours.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+        public ActionResult tracuuthongtin(int searchString)
+        {
+            //1. Tạo danh sách danh mục để hiển thị ở giao diện View thông qua DropDownList
+
+            var doanss = db.doans.Select(s => new { s.Id, s.Ten, s.NgayDi, s.NgayVe, s.ChiTietChuongTrinh, s.IdTour});
+            var tourss = db.tours.Select(s => new { s.Id, s.Ten });
+
+            //2. Tạo câu truy vấn kết 2 bảng Link, Category bằng mệnh đề join
+
+
+            //3. Tìm kiếm chuỗi truy vấn
+
+            var doansss = doanss.Where(s => s.Id.Equals(searchString));
+
+            //4. Tìm kiếm theo CategoryID
+
+            //5. Chuyển đổi kết quả từ var sang danh sách List<Link>
+            List < doan> listdoan = new List<doan>();
+            foreach (var item in doansss)
+            {
+                doan temp = new doan();
+                temp.Ten = item.Ten;
+                temp.NgayDi = item.NgayDi;
+                temp.NgayVe = item.NgayVe;
+                temp.ChiTietChuongTrinh= item.ChiTietChuongTrinh;
+                temp.IdTour = item.IdTour;
+                   
+                listdoan.Add(temp);
+            }
+
+            return View(listdoan);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

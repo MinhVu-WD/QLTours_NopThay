@@ -372,6 +372,9 @@
     <Content Include="Views\nguoidis\DSKhachHangEd.cshtml" />
     <Content Include="Views\nguoidis\DSKhachhangCr.cshtml" />
     <Content Include="Views\nguoidis\DSNhanVienCr.cshtml" />
+    <Content Include="Views\khachhangs\tracuuthongtin.cshtml" />
+    <Content Include="Views\doans\tracuuthongtin.cshtml" />
+    <Content Include="Views\tours\tracuuthongtin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

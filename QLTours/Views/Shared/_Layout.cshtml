@@ -51,10 +51,8 @@
                     <li>@Html.ActionLink("Đoàn", "Index", "doans")</li>
                     <li>@Html.ActionLink("Khách hàng", "Index", "khachhangs")</li>
                     <li>@Html.ActionLink("Nhân viên", "Index", "nhanviens")</li>
-
                     <li>@Html.ActionLink("Loại chi phí", "Index", "loaichiphis")</li>
                     <li>@Html.ActionLink("Người đi", "Index", "nguoidis")</li>
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -101,7 +99,7 @@
 
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>
-                            @Html.ActionLink("Tours", "Index", "tours")
+                            <a href="#">Tour  </a>
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink("Tours", "Index", "tours")</li>
                                 <li>@Html.ActionLink("Giá", "Index", "gias")</li>
@@ -125,14 +123,30 @@
 
                         <li>@Html.ActionLink("Người đi", "Index", "nguoidis")</li>
                         <li>
-                            @Html.ActionLink("Thống kê", "Index", "thongkes")
+                            <a href="#"> Thống kê  </a>
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink("Thống kê theo đoàn", "ThongKeDoan", "thongkes")</li>
                                 <li>@Html.ActionLink("Thống kê theo tour", "ThongKeTour", "thongkes")</li>
 
                             </ul>
                         </li>
-                        
+                        <li>
+                            <a href="#"> Tra cứu thông tin  </a>
+                            <ul class="nav nav-second-level">
+                               
+                                <li>
+                                    <a href="/khachhangs/tracuuthongtin?SearchString=0">Tra cứu thông tin khách hàng</a>
+                                </li>
+                                <li>
+                                    <a href="/doans/tracuuthongtin?SearchString=0">Tra cứu thông tin đoàn</a>
+                                </li>
+                                <li>
+                                    <a href=" /tours/tracuuthongtin?SearchString=0">Tra cứu thông tin tour</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
 
                     </ul>
 

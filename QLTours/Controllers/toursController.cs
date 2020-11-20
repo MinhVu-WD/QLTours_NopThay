@@ -135,6 +135,37 @@ namespace QLTours.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult tracuuthongtin(int searchString)
+        {
+            //1. Tạo danh sách danh mục để hiển thị ở giao diện View thông qua DropDownList
+
+            var tourss = db.tours.Select(s => new { s.Id, s.Ten, s.IdLoaiTour, s.IdGiaTour,s.MoTa });
+
+
+            //2. Tạo câu truy vấn kết 2 bảng Link, Category bằng mệnh đề join
+
+
+            //3. Tìm kiếm chuỗi truy vấn
+
+            var toursss = tourss.Where(s => s.Id.Equals(searchString));
+
+            //4. Tìm kiếm theo CategoryID
+
+            //5. Chuyển đổi kết quả từ var sang danh sách List<Link>
+            List<tour> listtour = new List<tour>();
+            foreach (var item in toursss)
+            {
+                tour temp = new tour();
+                temp.Ten = item.Ten;
+                temp.IdLoaiTour = item.IdLoaiTour;
+                temp.IdGiaTour = item.IdGiaTour;
+                temp.MoTa = item.MoTa;
+
+                listtour.Add(temp);
+            }
+
+            return View(listtour);
+        }
 
         protected override void Dispose(bool disposing)
         {

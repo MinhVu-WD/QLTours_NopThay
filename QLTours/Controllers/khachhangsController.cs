@@ -114,6 +114,38 @@ namespace QLTours.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // GET: khachhangs
+
+        public ActionResult tracuuthongtin(int searchString)
+        {
+            //1. Tạo danh sách danh mục để hiển thị ở giao diện View thông qua DropDownList
+            var khachhang = db.khachhangs.Select(s => new {s.Id, s.Ten, s.SDT, s.NgaySinh, s.Email, s.CMND });
+            ViewBag.categoryID = new SelectList(khachhang, "Id"); // danh sách Category
+
+            //2. Tạo câu truy vấn kết 2 bảng Link, Category bằng mệnh đề join
+
+
+            //3. Tìm kiếm chuỗi truy vấn
+
+              var  khachhangs = khachhang.Where(s => s.Id.Equals(searchString));
+
+            //4. Tìm kiếm theo CategoryID
+
+            //5. Chuyển đổi kết quả từ var sang danh sách List<Link>
+            List<khachhang> listkh = new List<khachhang>();
+            foreach (var item in khachhangs)
+            {
+                khachhang temp = new khachhang();
+                temp.Ten = item.Ten;
+                temp.SDT = item.SDT;
+                temp.NgaySinh = item.NgaySinh;
+                temp.Email = item.Email;
+                temp.CMND = item.CMND;
+                listkh.Add(temp);
+            }
+
+            return View(listkh);
+        }
 
         protected override void Dispose(bool disposing)
         {
