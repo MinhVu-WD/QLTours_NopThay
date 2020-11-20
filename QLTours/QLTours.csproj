@@ -375,6 +375,7 @@
     <Content Include="Views\khachhangs\tracuuthongtin.cshtml" />
     <Content Include="Views\doans\tracuuthongtin.cshtml" />
     <Content Include="Views\tours\tracuuthongtin.cshtml" />
+    <Content Include="Views\thongkes\ThongKeNhanVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

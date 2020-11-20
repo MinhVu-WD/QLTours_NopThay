@@ -415,5 +415,57 @@ namespace QLTours.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //------------------------------------------------------Thống kê nhân viên theo khoảng thời gian------------------------------------------------------------------------//
+        public class DSNhanVien
+        {
+            public int IdDoan { get; set; }
+            
+            public DateTime NgayDi { get; set; }
+
+            public DateTime NgayVe { get; set; }
+
+            public AspNetUser Nhanvien { get; set; }
+        }
+
+        public class SoLanThamGia
+        {
+            public AspNetUser Nhanvien { get; set; }
+
+            public int SoDoan { get; set; }
+        }
+
+        public ActionResult ThongKeNhanVien()
+        {
+            var doans_nguoidis = db.nguoidis.Join(db.doans, ng => ng.IdDoan, d => d.Id, (ng, d) => new { ng.DSNhanvien, d.NgayDi, d.NgayVe, ng.IdDoan });
+            List<DSNhanVien> dsnhanviens = new List<DSNhanVien>();
+            foreach (var item in doans_nguoidis)
+            {
+                string dsNhanVien = item.DSNhanvien;
+                if (dsNhanVien != null)
+                {
+                    string[] IdKs = dsNhanVien.Split(',');
+                    foreach (string item1 in IdKs)
+                    {
+                        AspNetUser k = db.AspNetUsers.Find(item1);
+                        DateTime ngaydi = item.NgayDi;
+                        DateTime ngayve = item.NgayVe;
+                        int iddoan = item.IdDoan;
+                        dsnhanviens.Add(new DSNhanVien() { IdDoan = iddoan, NgayDi = ngaydi, NgayVe = ngayve, Nhanvien = k});
+                    }
+                }
+            }
+            ViewBag.DSNhanVien = dsnhanviens;
+            List<SoLanThamGia> soLanThamGias = new List<SoLanThamGia>();
+            var data = dsnhanviens.GroupBy(g=>new { g.Nhanvien }).Select(s=>new { s.Key.Nhanvien, SoLan = s.Count()});
+            foreach(var item in data)
+            {
+                soLanThamGias.Add(new SoLanThamGia() { Nhanvien = item.Nhanvien, SoDoan = item.SoLan });
+            }
+            ViewBag.SoLanThamGia = soLanThamGias;
+
+            return View();
+        }
+
     }
 }

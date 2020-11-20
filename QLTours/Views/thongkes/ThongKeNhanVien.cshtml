@@ -1,7 +1,81 @@
-﻿
-@{
-    ViewBag.Title = "ThongKeNhanVien";
+﻿@{
+    ViewBag.Title = "Thống kê số lần tham gia tour của nhân viên";
 }
 
-<h2>ThongKeNhanVien</h2>
+<h4> Thống kê các đoàn mà nhân viên đã tham gia </h4>
 
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Tên nhân viên
+        </th>
+        <th>
+            Ngày đi
+        </th>
+        <th>
+            Ngày về
+        </th>
+        <th>
+            Đoàn
+        </th>
+    </tr>
+    @{ int counter = 0;}
+    @foreach (var item in (List<QLTours.Controllers.thongkesController.DSNhanVien>) ViewBag.DSNhanVien)
+    {
+        <tr>
+            <td>
+                @(++counter)
+            </td>
+            <td>
+                @item.Nhanvien.TenNhanVien
+            </td>
+            <td>
+                @item.NgayDi
+            </td>
+            <td>
+                @item.NgayVe
+            </td>
+            <td>
+                @item.IdDoan
+            </td>
+        </tr>
+    }
+</table>
+<hr/>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Tên nhân viên
+        </th>
+        <th>
+            Tên tài khoản
+        </th>
+        <th>
+            Số đoàn đã tham gia
+        </th>        
+    </tr>
+    @{ int counter1 = 0;}
+    @foreach (var item in (List<QLTours.Controllers.thongkesController.SoLanThamGia>)ViewBag.SoLanThamGia)
+    {
+        <tr>
+            <td>
+                @(++counter1)
+            </td>
+            <td>
+                @item.Nhanvien.TenNhanVien
+            </td>
+            <td>
+                @item.Nhanvien.UserName
+            </td>
+            <td>
+                @item.SoDoan
+            </td>            
+        </tr>
+    }
+</table>
