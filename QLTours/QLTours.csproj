@@ -363,13 +363,18 @@
     <Content Include="Views\nguoidis\Details.cshtml" />
     <Content Include="Views\nguoidis\Edit.cshtml" />
     <Content Include="Views\nguoidis\Index.cshtml" />
+    <Content Include="Views\thongkes\Create.cshtml" />
+    <Content Include="Views\thongkes\Delete.cshtml" />
     <Content Include="Views\thongkes\ThongKeTour.cshtml" />
+    <Content Include="Views\thongkes\Edit.cshtml" />
     <Content Include="Views\thongkes\ThongKeDoan.cshtml" />
     <Content Include="Views\nguoidis\DSNhanVienEd.cshtml" />
     <Content Include="Views\nguoidis\DSKhachHangEd.cshtml" />
     <Content Include="Views\nguoidis\DSKhachhangCr.cshtml" />
     <Content Include="Views\nguoidis\DSNhanVienCr.cshtml" />
-    <Content Include="Views\thongkes\ThongKeNhanVien.cshtml" />
+    <Content Include="Views\khachhangs\tracuuthongtin.cshtml" />
+    <Content Include="Views\doans\tracuuthongtin.cshtml" />
+    <Content Include="Views\tours\tracuuthongtin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

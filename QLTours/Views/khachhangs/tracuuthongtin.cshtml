@@ -1,0 +1,80 @@
+﻿
+
+@model IEnumerable<QLTours.Models.khachhang>
+
+@{
+    ViewBag.Title = "Tra cứu thông tin khách hàng   ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Tra cứu thông tin khách hàng </h2>
+<br />
+<p>
+
+
+    <!-- 1. Đoạn cần thêm -->
+    @using (Html.BeginForm("tracuuthongtin", "khachhangs", FormMethod.Get))
+    {
+    <p>
+        Tìm theo ID khách hàng: @Html.TextBox("SearchString") <input type="submit" value="Tìm kiếm" />
+    </p>
+}
+    <!-- Kết thúc -->
+    </p><br />
+
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+
+            <!-- 2. Đoạn cần thêm-->
+            <th>
+                @Html.DisplayNameFor(model => model.CMND)
+            </th>
+            <!-- Kết thúc -->
+
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+
+                <!-- 3. Đoạn cần thêm-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.CMND)
+                </td>
+                <!-- Kết thúc -->
+
+
+
+            </tr>
+        }
+
+    </table>
