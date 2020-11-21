@@ -116,7 +116,7 @@ namespace QLTours.Controllers
         }
         // GET: khachhangs
 
-        public ActionResult tracuuthongtin(int searchString)
+        public ActionResult tracuuthongtin(string searchString)
         {
             //1. Tạo danh sách danh mục để hiển thị ở giao diện View thông qua DropDownList
             var khachhang = db.khachhangs.Select(s => new {s.Id, s.Ten, s.SDT, s.NgaySinh, s.Email, s.CMND });
@@ -127,7 +127,7 @@ namespace QLTours.Controllers
 
             //3. Tìm kiếm chuỗi truy vấn
 
-              var  khachhangs = khachhang.Where(s => s.Id.Equals(searchString));
+              var  khachhangs = khachhang.Where(s => s.Ten.Contains(searchString));
 
             //4. Tìm kiếm theo CategoryID
 

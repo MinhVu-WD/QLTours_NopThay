@@ -96,33 +96,33 @@ namespace QLTours.Controllers
                 int co = 0;
                 foreach (var item in chitiettour)
                 {
-                    if(doa == item.IDdoan)
+                    if (doa == item.IDdoan)
                     {
                         khach = item.DSnguoidi.Split(',');
                         totalElements = khach.Count();
                         doanhthu = (double)totalElements * item.SoTien;
-                        
+
                         TenDoan = item.TenDoan;
                         SoTien = item.SoTien;
                         Total += item.Total;
                         co = 1;
 
                     }
-                    
-                    
-                    
+
+
+
 
                 }
                 lai = doanhthu - Total;
-                if(co == 1)
+                if (co == 1)
                 {
-                    ketqua.Add(new ShiftsModel(TenDoan, totalElements,SoTien, doanhthu, Total, lai));
+                    ketqua.Add(new ShiftsModel(TenDoan, totalElements, SoTien, doanhthu, Total, lai));
 
                 }
-               
+
 
             }
-                
+
 
 
             ViewBag.shifts = ketqua; // this line will pass your object but now to model
@@ -142,11 +142,11 @@ namespace QLTours.Controllers
                                                         t => t.Id,
                                                         (d, t) => new { IDtour = d.Id, d.Ten, t.SoTien })
                                                         .Select(s => new { s.IDtour, s.Ten, s.SoTien });
-            var ctchiphi = db.chiphis.GroupBy(s => s.IdDoan).Select(s => new { Total = s.Sum(d => d.Total), s.Key});
+            var ctchiphi = db.chiphis.GroupBy(s => s.IdDoan).Select(s => new { Total = s.Sum(d => d.Total), s.Key });
             var doandi = db.tours.Join(db.doans,
                                                         d => d.Id,
                                                         t => t.IdTour,
-                                                        (d, t) => new { IDtour = t.Ten,  t.IdTour ,t.Id})
+                                                        (d, t) => new { IDtour = t.Ten, t.IdTour, t.Id })
                                                         .Join(db.nguoidis,
                                                         d => d.Id,
                                                         t => t.IdDoan,
@@ -165,13 +165,13 @@ namespace QLTours.Controllers
                                                         .Join(db.chiphis,
                                                         ct => ct.IDdoan,
                                                         cp => cp.IdDoan,
-                                                        (ct, cp) => new { ct.IDdoan, ct.IdGiaTour, ct.TenDoan, ct.DSnguoidi, ct.IDtours,cp.Total })
+                                                        (ct, cp) => new { ct.IDdoan, ct.IdGiaTour, ct.TenDoan, ct.DSnguoidi, ct.IDtours, cp.Total })
                                                         .Join(db.gias,
                                                         ctt => ctt.IDtours,
                                                         g => g.Id,
                                                         (ctt, g) => new { ctt.IDdoan, g.SoTien, ctt.TenDoan, ctt.DSnguoidi, ctt.IDtours, ctt.Total })
 
-                                                        .Select(s => new { s.TenDoan, s.DSnguoidi, s.SoTien, s.IDtours, s.IDdoan , s.Total });
+                                                        .Select(s => new { s.TenDoan, s.DSnguoidi, s.SoTien, s.IDtours, s.IDdoan, s.Total });
             foreach (var tours in cttour)
             {
                 string[] khach;
@@ -187,50 +187,52 @@ namespace QLTours.Controllers
                 int tongdoan = 0;
                 foreach (var item in chitiettour)
                 {
-                    
+
                     if (item.IDtours == tours.IDtour)
                     {
-                        
-                                tongchiphi += item.Total;
+
+                        tongchiphi += item.Total;
 
                     }
-                    
 
-                        
-                        
-                    
+
+
+
+
                 }
 
                 foreach (var ctdoandi in doandi)
                 {
-                    if(tours.IDtour == ctdoandi.IdTour)
+                    if (tours.IDtour == ctdoandi.IdTour)
                     {
                         ++tongdoan;
                     }
-                }foreach (var ctt in cttour)
-                     {foreach (var ctdoandi in doandi)
+                }
+                foreach (var ctt in cttour)
+                {
+                    foreach (var ctdoandi in doandi)
                     {
-                
-                    
+
+
                         if (ctt.IDtour == ctdoandi.IdTour)
                         {
                             khach = ctdoandi.DSKhach.Split(',');
                             totalElements = khach.Count();
                             doanhthu = ctt.SoTien * (double)totalElements;
                             tongdoanhthu += doanhthu;
-                            
+
                         }
                     }
                     tongdt.Add(ctt.IDtour, tongdoanhthu);
                 }
-                
-                if(tongdoan>0)
+
+                if (tongdoan > 0)
                 {
                     object dt = tongdt[tours.IDtour];
                     tonglai = (double)dt - tongchiphi;
                     ketqua.Add(new ShiftsModeltour(tours.Ten, tongdoan, (double)dt, tongchiphi, tonglai));
                 }
-                
+
             }
 
 
@@ -238,7 +240,8 @@ namespace QLTours.Controllers
 
             return View(chitiettour.ToList());
         }
-        public class Toursss {   
+        public class Toursss
+        {
             public int id { get; set; }
             public string Ten { get; set; }
         }
@@ -251,7 +254,7 @@ namespace QLTours.Controllers
             //DropDownList Thành phố
             string tttour = "Đà lạt"; int idtour = idd;
             var ttour = db.tours.Select(g => new { g.Id, g.Ten });
-            
+
             List<ShiftsModel> ketqua = new List<ShiftsModel>();
 
 
@@ -420,7 +423,7 @@ namespace QLTours.Controllers
         public class DSNhanVien
         {
             public int IdDoan { get; set; }
-            
+
             public DateTime NgayDi { get; set; }
 
             public DateTime NgayVe { get; set; }
@@ -451,14 +454,14 @@ namespace QLTours.Controllers
                         DateTime ngaydi = item.NgayDi;
                         DateTime ngayve = item.NgayVe;
                         int iddoan = item.IdDoan;
-                        dsnhanviens.Add(new DSNhanVien() { IdDoan = iddoan, NgayDi = ngaydi, NgayVe = ngayve, Nhanvien = k});
+                        dsnhanviens.Add(new DSNhanVien() { IdDoan = iddoan, NgayDi = ngaydi, NgayVe = ngayve, Nhanvien = k });
                     }
                 }
             }
             ViewBag.DSNhanVien = dsnhanviens;
             List<SoLanThamGia> soLanThamGias = new List<SoLanThamGia>();
-            var data = dsnhanviens.GroupBy(g=>new { g.Nhanvien }).Select(s=>new { s.Key.Nhanvien, SoLan = s.Count()});
-            foreach(var item in data)
+            var data = dsnhanviens.GroupBy(g => new { g.Nhanvien }).Select(s => new { s.Key.Nhanvien, SoLan = s.Count() });
+            foreach (var item in data)
             {
                 soLanThamGias.Add(new SoLanThamGia() { Nhanvien = item.Nhanvien, SoDoan = item.SoLan });
             }
@@ -466,6 +469,37 @@ namespace QLTours.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult ThongKeNhanVien(DateTime NgayDi, DateTime NgayVe)
+        {
+            var doans_nguoidis = db.nguoidis.Join(db.doans, ng => ng.IdDoan, d => d.Id, (ng, d) => new { ng.DSNhanvien, d.NgayDi, d.NgayVe, ng.IdDoan }).Where(w=> w.NgayDi >= NgayDi & w.NgayVe <= NgayVe);
+            List<DSNhanVien> dsnhanviens = new List<DSNhanVien>();
+            foreach (var item in doans_nguoidis)
+            {
+                string dsNhanVien = item.DSNhanvien;
+                if (dsNhanVien != null)
+                {
+                    string[] IdKs = dsNhanVien.Split(',');
+                    foreach (string item1 in IdKs)
+                    {
+                        AspNetUser k = db.AspNetUsers.Find(item1);
+                        DateTime ngaydi = item.NgayDi;
+                        DateTime ngayve = item.NgayVe;
+                        int iddoan = item.IdDoan;
+                        dsnhanviens.Add(new DSNhanVien() { IdDoan = iddoan, NgayDi = ngaydi, NgayVe = ngayve, Nhanvien = k });
+                    }
+                }
+            }
+            ViewBag.DSNhanVien = dsnhanviens;
+            List<SoLanThamGia> soLanThamGias = new List<SoLanThamGia>();
+            var data = dsnhanviens.GroupBy(g => new { g.Nhanvien }).Select(s => new { s.Key.Nhanvien, SoLan = s.Count() });
+            foreach (var item in data)
+            {
+                soLanThamGias.Add(new SoLanThamGia() { Nhanvien = item.Nhanvien, SoDoan = item.SoLan });
+            }
+            ViewBag.SoLanThamGia = soLanThamGias;
 
+            return View();
+        }
     }
 }

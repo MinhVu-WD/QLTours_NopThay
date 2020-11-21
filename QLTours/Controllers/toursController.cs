@@ -135,7 +135,7 @@ namespace QLTours.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult tracuuthongtin(int searchString)
+        public ActionResult tracuuthongtin(string searchString)
         {
             //1. Tạo danh sách danh mục để hiển thị ở giao diện View thông qua DropDownList
 
@@ -147,7 +147,7 @@ namespace QLTours.Controllers
 
             //3. Tìm kiếm chuỗi truy vấn
 
-            var toursss = tourss.Where(s => s.Id.Equals(searchString));
+            var toursss = tourss.Where(s => s.Ten.Contains(searchString));
 
             //4. Tìm kiếm theo CategoryID
 
